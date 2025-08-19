@@ -1,29 +1,101 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .top-bar {
+        position: fixed;   /* 화면 상단에 고정 */
+          top: 0;
+          left: 0;
+          width: 100%;                /* 화면 전체 너비 */
+          height: 60px;               /* 바 높이 */
+          background-color: gray;    /* 배경색 */
+          display: flex;              /* 로고를 가로로 정렬 */
+          align-items: center;        /* 세로 중앙 정렬 */
+          justify-content: center;    /* 로고 가로 중앙 정렬 */
+          z-index: 1000;              /* 다른 요소 위로 */
+        }
+
+        .brand {
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        font-size: 20px;
+        }
+
+        h1 {
+        margin-top: 100px;
+        }
+
+        form {
+        display: flex;
+        flex-direction: column; /* 세로 배치 */
+        align-items: center;    /* 가로 가운데 */
+        width: 100%;
+        }
+        form div {
+        margin-bottom: 10px; /* 항목 간격 */
+        }
+
+        .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* 세로 중앙 */
+        align-items: center;     /* 가로 중앙 */
+              /* 화면 높이 전체 */
+        }
+
+
+        title {
+        display: fixed;
+        text-align: center;
+        }
+
+        .button-group {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 10px;
+
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>새 글</title>
+    <title>작성하기</title>
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
 </head>
 <body>
-<h1>새 글 작성</h1>
+<header>
+    <span class="top-bar">
+        <a href="/" class="brand">ᓚᘏᗢ</a>
+    </span>
+</header>
+
+<div class="container">
+<h1 class="container">새 글 작성</h1>
 <form method="post" action="/articles">
+
     <input type="hidden" id="article-id" th:value="${article} != null ? ${article.id} : ''" />
+
     <div>
         <label>제목
             <input type="text" id="title" name="title" required>
         </label>
     </div>
+
     <div>
         <label>내용
             <textarea id="content" name="content" rows="8" required></textarea>
         </label>
     </div>
+    <div class="button-group">
     <button type="button" id="create-btn">저장</button>
-    <a href="/articles">목록</a>
+    <button><a href="/articles" style="text-decoration: none">목록</a></button>
+    </div>
 </form>
+</div>
+
 <script src="/js/article.js" defer></script>
 </body>
 </html>

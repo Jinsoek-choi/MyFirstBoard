@@ -1,15 +1,66 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
+
+  <style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    }
+
+    main {
+    text-align: center;
+    }
+
+    .top-bar {
+        position: fixed;   /* 화면 상단에 고정 */
+          top: 0;
+          left: 0;
+          width: 100%;                /* 화면 전체 너비 */
+          height: 60px;               /* 바 높이 */
+          background-color: gray;    /* 배경색 */
+          display: flex;              /* 로고를 가로로 정렬 */
+          align-items: center;        /* 세로 중앙 정렬 */
+          justify-content: center;    /* 로고 가로 중앙 정렬 */
+          z-index: 1000;              /* 다른 요소 위로 */
+        }
+
+    .brand {
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        font-size: 20px;
+        }
+
+    h1 {
+    margin-top: 100px;
+    }
+
+    .button-group {
+
+        gap: 20px;
+        justify-content: center;
+        margin-top: 10px;
+        }
+
+
+
+
+  </style>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:text="${article.title}">게시글</title>
+
   <meta name="_csrf" th:content="${_csrf.token}">
   <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
 </head>
 <body>
 <header>
-  <a href="/" class="brand">🌀 임시로고</a>
+  <span class="top-bar">
+  <a href="/" class="brand">ᓚᘏᗢ</a>
+   </span>
   <div>
       <span sec:authorize="isAnonymous()">
         <a href="/login">로그인</a>
@@ -29,12 +80,13 @@
   <input type="hidden" id="article-id" th:value="${article.id}">
   <div th:text="${article.content}">내용</div>
 
-  <div th:if="${isOwner}">
-    <a th:href="@{'/articles/' + ${article.id} + '/edit'}" id="modify-btn-link">수정</a>
+  <div th:if="${isOwner}" class="button-group">
+    <button><a th:href="@{'/articles/' + ${article.id} + '/edit'}" id="modify-btn-link">수정</a></button>
     <button id="delete-btn">삭제</button>
+    <button><a href="/articles">목록</a></button>
   </div>
 
-  <p><a href="/articles">목록</a></p>
+
 </main>
 <script src="/js/article.js" defer></script>
 </body>

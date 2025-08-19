@@ -1,17 +1,93 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로그인</title></head>
+  <title>로그인</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 위에서부터 시작 */
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 200px;          /* 원하는 만큼 조절 */
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button, a.btn {
+      width: 300px;
+      height: 25px;
+      margin-bottom: 10px;
+    }
+
+    a.btn {
+    border: 1px solid #4285F4; /* 테두리 색과 두께 */
+    border-radius: 6px;         /* 모서리 둥글게 */
+    text-align: center;
+    text-decoration: none;      /* 밑줄 제거 */
+    display: inline-block;      /* 버튼처럼 보이게 */
+    }
+
+    input {
+    width: 300px;   /* 가로 길이 */
+    height: 40px;   /* 세로 높이 */
+    padding: 8px;   /* 안쪽 여백 */
+    font-size: 16px;
+    box-sizing: border-box; /* 패딩 포함해서 크기 계산 */
+    }
+
+    .top-bar {
+        position: fixed;   /* 화면 상단에 고정 */
+          top: 0;
+          left: 0;
+          width: 100%;                /* 화면 전체 너비 */
+          height: 60px;               /* 바 높이 */
+          background-color: gray;    /* 배경색 */
+          display: flex;              /* 로고를 가로로 정렬 */
+          align-items: center;        /* 세로 중앙 정렬 */
+          justify-content: center;    /* 로고 가로 중앙 정렬 */
+          z-index: 1000;              /* 다른 요소 위로 */
+        }
+
+    .brand {
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        font-size: 20px;
+        }
+
+    .btn {
+    font-size: 13px;
+    align-items: center;
+    justify-content: center;
+    }
+
+}
+
+  </style>
+</head>
 <body>
 <header>
-  <a href="/" class="brand">🌀 임시로고</a>
+  <span class="top-bar">
+  <a href="/" class="brand">ᓚᘏᗢ</a>
+   </span>
 </header>
 <main>
   <h1>로그인</h1>
   <form method="post" action="/login">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <div><label>이메일 <input type="email" name="username" required></label></div>
-    <div><label>비밀번호 <input type="password" name="password" required></label></div>
+    <div><label><input type="email" name="username" placeholder="email" required></label></div>
+    <div><label><input type="password" name="password" placeholder="password" required></label></div>
     <button type="submit">로그인</button>
   </form>
   <a href="/oauth2/authorization/google" class="btn btn-primary">구글로 로그인</a>

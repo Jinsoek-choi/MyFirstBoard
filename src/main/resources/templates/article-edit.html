@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+
+  <style>
+    h1 {
+    margin-top: 100px;
+    }
+
+    .top-bar {
+        position: fixed;   /* 화면 상단에 고정 */
+          top: 0;
+          left: 0;
+          width: 100%;                /* 화면 전체 너비 */
+          height: 60px;               /* 바 높이 */
+          background-color: gray;    /* 배경색 */
+          display: flex;              /* 로고를 가로로 정렬 */
+          align-items: center;        /* 세로 중앙 정렬 */
+          justify-content: center;    /* 로고 가로 중앙 정렬 */
+          z-index: 1000;              /* 다른 요소 위로 */
+        }
+
+    .brand {
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        font-size: 20px;
+        }
+
+    .edit {
+    text-align: center;
+    }
+
+    .button-group {
+        gap: 20px;
+        justify-content: center;
+        margin-top: 10px;
+        text-decoration: none;
+        }
+
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>글 수정</title>
   <meta name="_csrf" th:content="${_csrf.token}">
   <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
 </head>
 <body>
+<span class="top-bar">
+  <a href="/" class="brand">ᓚᘏᗢ</a>
+   </span>
+<div class="edit">
 <h1>글 수정</h1>
 <form th:action="@{'/articles/' + ${article.id} + '/edit'}" method="post">
   <input type="hidden" id="article-id" th:value="${article} != null ? ${article.id} : ''" />
@@ -16,15 +59,20 @@
       <input type="text" id="title" name="title" th:value="${article.title}" required>
     </label>
   </div>
+
   <div>
     <label>내용
       <textarea id="content" name="content" rows="8" required th:text="${article.content}"></textarea>
     </label>
   </div>
+  <div class="button-group">
   <button type="button" id="modify-btn">저장</button>
-  <a th:href="@{'/articles/' + ${article.id}}">취소</a>
-  <a href="/articles">목록</a>
+  <button><a th:href="@{'/articles/' + ${article.id}}">취소</a></button>
+  <button><a href="/articles">목록</a></button>
+  </div>
 </form>
+</div>
+
 <script src="/js/article.js" defer></script>
 </body>
 </html>
